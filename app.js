@@ -42,4 +42,4 @@ const repeat = (msg) => {
         repeat(msg);
     }, 5000);
 };
-client.login('NzYxNDAzMjA4Mzg3MjY0NTE0.X3aF_w.iojXha-kHzRqwMEpP61Z5eNYXZE');
+client.login(process.env.BOT_TOKEN);
