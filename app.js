@@ -4,11 +4,12 @@ import Discord from 'discord.js';
 //You @ the bot and provide a command
 //and then the bot will repeate that command untill you @ him and say stop.
 
-//To do: 
+//To do:
 //Allow for time argument to be taken
-const client = new Discord.Client();  //identifies the user
+const client = new Discord.Client(); //identifies the user
 
-client.once('ready', () => { //when bot is ready it states so
+client.once('ready', () => {
+    //when bot is ready it states so
     console.log('Ready for action!');
     client.user.setActivity('Unsolicited');
 });
@@ -16,21 +17,34 @@ client.once('ready', () => { //when bot is ready it states so
 let channel;
 let spam;
 
-client.on('message', (message) => { //reads in messages of the server
+client.on('message', (message) => {
+    //reads in messages of the server
 
     channel = message.channel; //channel the read in message was sent in
     let args = message.content.split(' ');
-    const user = message.mentions.users.first();  //whomever was @ mentioned is the user
+    const user = message.mentions.users.first(); //whomever was @ mentioned is the user
 
-    if(args[0].includes(client.user.id)){ //checks to make sure @spambot-9000 is the first arg
-        if (user && user.id === client.user.id) {  //confirms spambot-9000 is the mentioned user
+    if (args[0].includes(client.user.id)) {
+        //checks to make sure @spambot-9000 is the first arg
+        if (user && user.id === client.user.id) {
+            //confirms spambot-9000 is the mentioned user
             if (args[1]) {
-                switch (args[1]) {      //constantly cycles through the given msg until 'stop' is read in
+                switch (
+                    args[1] //constantly cycles through the given msg until 'stop' is read in
+                ) {
                     case 'stop':
                         clearTimeout(spam);
                         break;
                     default:
-                        repeat(args[1]);
+                        //Added a ternary expression that checks for a third argument,
+                        //if one is passed in, it parses that argument to an integer
+                        //and sends it to the repeat function
+                        repeat(
+                            args[1],
+                            args[2] && !isNaN(args[2])
+                                ? Math.max(2000, parseInt(args[2]))
+                                : 3000
+                        );
                         break;
                 }
             }
@@ -38,11 +52,12 @@ client.on('message', (message) => { //reads in messages of the server
     }
 });
 
-const repeat = (msg) => {       //recursive function to send out given msg
+const repeat = (msg, interval) => {
+    //recursive function to send out given msg
     spam = setTimeout(() => {
         channel.send(msg);
-        repeat(msg);
-    }, 5000);       //timing in ms
+        repeat(msg, interval);
+    }, interval); //timing in ms
 };
-
-client.login(process.env.BOT_TOKEN);
+client.login('NzYxNDAzMjA4Mzg3MjY0NTE0.X3aF_w.Pp-MATIrqX9b01Y07IHA8oCxTTM');
+// client.login(process.env.BOT_TOKEN);
