@@ -17,6 +17,7 @@ client.on('message', (message) => {
     channel = message.channel;
     let args = message.content.split(' ');
     const user = message.mentions.users.first();
+    if(user === args[0]) console.log("wroks");
 
     if (user && user.id === client.user.id) {
         if (args[1]) {
