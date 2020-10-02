@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 
 //Intent:
-//You @ the bot and provide a command
+//You @ the bot and provide a commanda
 //and then the bot will repeate that command untill you @ him and say stop.
 const client = new Discord.Client();
 
