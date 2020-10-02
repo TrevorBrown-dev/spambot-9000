@@ -5,7 +5,7 @@ import Discord from 'discord.js';
 //and then the bot will repeate that command untill you @ him and say stop.
 
 //To do: 
-//Allow for ti argument to be taken
+//Allow for time argument to be taken
 const client = new Discord.Client();  //identifies the user
 
 client.once('ready', () => { //when bot is ready it states so
