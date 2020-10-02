@@ -7,8 +7,6 @@ import Discord from 'discord.js';
 //To do:
 //Allow for time argument to be taken: Done!
 //Add change in activity based on action: Done!
-//Add stack to organize different spams:
-//Add ability to direct message spam:
 const client = new Discord.Client(); //identifies the user
 
 client.once('ready', () => {
@@ -18,7 +16,7 @@ client.once('ready', () => {
 });
 
 let channel;
-let spam;
+let spam = [];
 
 client.on('message', (message) => {
     //reads in messages of the server
@@ -38,7 +36,7 @@ client.on('message', (message) => {
                     args[1] //constantly cycles through the given msg until 'stop' is read in
                 ) {
                     case 'stop':
-                        clearTimeout(spam);
+                        if (spam.length > 0) clearTimeout(spam.pop());
                         client.user.setActivity('Unsolicited');
                         break;
                     default:
@@ -54,10 +52,14 @@ client.on('message', (message) => {
 });
 
 const repeat = (msg, interval) => {
+    spam.push(_repeat(msg, interval));
+};
+
+const _repeat = (msg, interval) => {
     //recursive function to send out given msg
-    spam = setTimeout(() => {
+    return setTimeout(() => {
         channel.send(msg);
-        repeat(msg, interval);
+        _repeat(msg, interval);
     }, interval); //timing in ms
 };
 client.login(process.env.BOT_TOKEN);
