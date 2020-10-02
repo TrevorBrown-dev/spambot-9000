@@ -7,6 +7,8 @@ import Discord from 'discord.js';
 //To do:
 //Allow for time argument to be taken: Done!
 //Add change in activity based on action: Done!
+//Add stack to organize different spams:
+//Add ability to direct message spam:
 const client = new Discord.Client(); //identifies the user
 
 client.once('ready', () => {
