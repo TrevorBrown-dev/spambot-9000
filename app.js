@@ -59,5 +59,4 @@ const repeat = (msg, interval) => {
         repeat(msg, interval);
     }, interval); //timing in ms
 };
-client.login('NzYxNDAzMjA4Mzg3MjY0NTE0.X3aF_w.Pp-MATIrqX9b01Y07IHA8oCxTTM');
-// client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN);
