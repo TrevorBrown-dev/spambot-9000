@@ -5,7 +5,8 @@ import Discord from 'discord.js';
 //and then the bot will repeate that command untill you @ him and say stop.
 
 //To do:
-//Allow for time argument to be taken
+//Allow for time argument to be taken: Done!
+//Add change in activity based on action: Done!
 const client = new Discord.Client(); //identifies the user
 
 client.once('ready', () => {
@@ -25,15 +26,17 @@ client.on('message', (message) => {
     const user = message.mentions.users.first(); //whomever was @ mentioned is the user
 
     if (args[0].includes(client.user.id)) {
+        client.user.setActivity('Spamming');
         //checks to make sure @spambot-9000 is the first arg
-        if (user && user.id === client.user.id) {
+        if (user && user.id === client.user.id) { //is this obsolete now?
             //confirms spambot-9000 is the mentioned user
             if (args[1]) {
                 switch (
                     args[1] //constantly cycles through the given msg until 'stop' is read in
-                ) {
+                ){
                     case 'stop':
                         clearTimeout(spam);
+                        client.user.setActivity('Unsolicited');
                         break;
                     default:
                         //Added a ternary expression that checks for a third argument,
