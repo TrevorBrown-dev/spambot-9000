@@ -5,21 +5,17 @@ import { commands, tokens } from './commands.js';
 //and then the bot will repeate that command untill you @ him and say stop.
 
 //To do:
-//Allow for time argument to be taken: Done!
-//Add change in activity based on action: Done!
-//Add capacity to stack spams: Done!
-//Add ability to enter sentences as message: Done!
-//Add ability to direct message spams: Done!
-//Add command that replies with list of commands and parameters: Done!
+//World corruption: 1/2 Done!
 const client = new Discord.Client(); //identifies the user
 
 client.once('ready', () => {
-    //when bot is ready it states so
+    //when bot is ready it states so and sets activity
     console.log('Ready for action!');
     client.user.setActivity('Unsolicited');
 });
 
 const buildArguments = (input) => {
+    //Allows for full sentences to be entered for the message with quotes
     let args;
     if (input.match(/\".*\"/g)) {
         let test = input.split(/ +/);
@@ -41,7 +37,6 @@ const buildArguments = (input) => {
 
 client.on('message', (message) => {
     //reads in messages of the server
-
     let args = buildArguments(message.content);
     const command = args.shift();
     if (message.author != client.user) {
@@ -49,14 +44,14 @@ client.on('message', (message) => {
             //Spam command
             case `${tokens.PREFIX + tokens.spam}`:
                 client.user.setActivity('Spamming');
-                message.delete();
+                message.delete(); //Optional clears channel of any wrong doing and culpability
                 commands.spam(args, message, () => client.user.setActivity('Unsolicited'));
                 break;
 
             //DM Spam command
             case `${tokens.PREFIX + tokens.spamDM}`:
                 client.user.setActivity('Spamming');
-                message.delete();
+                message.delete(); //Optional clears channel of any wrong doing and culpability
                 commands.spamDM(args, message, () => client.user.setActivity('Unsolicited'));
                 break;
 
